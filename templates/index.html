@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Student form</title>
+  </head>
+  <body>
+
+    <nav class="container-fluid navbar navbar-dark bg-dark">
+      <div class="navbar-brand">
+        <a href="{%url 'htmlfl'%}" class="navbar-brand">Home</a>
+      </div>
+      <div class="navbar-brand">
+        <a href="{% url 'htmlfl' %}?docid=0" class="navbar-brand">New document</a>
+      </div>
+    </nav>
+    
+    <section class="section">
+      <div class="row ms-3 mt-3">
+        <div class="col-2">
+          <label>Student List</label>
+          <ol class="list-group">
+            {% for i in documents %}
+            <li >
+              <a class="list-group-item" href="{% url 'htmlfl' %}?docid={{i.id}}"> {{ i.name}} (id={{i.id}})</a>
+            </li>
+            {% endfor %}
+          </ol> 
+        </div>
+
+        <div class="col-10">
+          <form class="form-control my-3" method="post">
+            {% csrf_token %}
+
+              <input type="hidden" name="docid" value="{{ docid }}">
+
+              <div>
+                <label class="form-label">Student ID:</label>
+                <input class="form-control" type="text" name="htmlId" value="{{ document.sid }}">
+             </div>
+
+              <div>
+                <label class="form-label">Name:</label>
+                <input class="form-control" type="text" name="htmlName" value="{{ document.name }}" >
+             </div>
+
+              <div>
+                <label class="form-label">DOB:</label>
+                <input class="form-control" type="text" name="htmlDOB" placeholder="YYYY-MM-DD" value="{{ document.DOB }}" >
+             </div>
+
+              <div>
+                <label class="form-label">Gender:</label>
+                <input class="form-control" type="text" name="htmlGender" value="{{ document.gender}}">
+             </div>
+
+              <div>
+                <label class="form-label">Address:</label>
+                <textarea class="form-control" rows="5" type="text" name="htmlAddress">{{document.addess}}</textarea>
+             </div>
+
+              <div>
+                <label class="form-label">Zip Code:</label>
+                <input class="form-control" type="text" name="htmlZip" value="{{ document.zip_code }}" >
+             </div>
+
+             <div class="input-group">
+                 <div class="">
+                   <button class="btn btn-primary mt-3 me-3">Submit</button>
+                 </div>
+                 {% if document %}
+                  <div class="control">
+                      <a href="{% url 'delete_note' document.id %}" class="btn btn-danger mt-3 me-3">Delete</a>
+                  </div>
+                  {% endif %}
+           </div>
+
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+    <footer class="my-4" style="text-align: center;">
+      &copy: tech villain
+    </footer>
+
+
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>
